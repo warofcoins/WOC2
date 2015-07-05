@@ -2462,8 +2462,6 @@ int ScriptSigArgsExpected(txnouttype t, const std::vector<std::vector<unsigned c
 bool IsStandard(const CScript& scriptPubKey, txnouttype& whichType)
 {
     vector<valtype> vSolutions;
-    if (!Solver(scriptPubKey, whichType, vSolutions))
-        return false;
 
     if (whichType == TX_MULTISIG)
     {
