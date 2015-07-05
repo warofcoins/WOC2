@@ -75,34 +75,6 @@ public:
         genesis.nBits    = 0x1e0ffff0;
         genesis.nNonce   = 2058131;
 		
-		// If genesis block hash does not match, then generate new genesis hash.
-        // This will figure out a valid hash and Nonce if you're
-        // creating a different genesis block:
-        while(false)
-        {
-			if (genesis.GetHash() != hashGenesisBlock)
-			LogPrintf("Searching for genesis block...\n");
-		    uint256 thash;
-            thash = genesis.GetPoWHash();
-			uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-            if (thash <= hashTarget)
-                break;
-            if ((genesis.nNonce & 0xFFF) == 0)
-            {
-                LogPrintf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-            }
-            ++genesis.nNonce;
-            if (genesis.nNonce == 0)
-            {
-                LogPrintf("NONCE WRAPPED, incrementing time\n");
-                ++genesis.nTime;
-            }
-			LogPrintf("genesis.nTime = %u \n", genesis.nTime);
-			LogPrintf("genesis.nNonce = %u \n", genesis.nNonce);
-			LogPrintf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-			LogPrintf("hashMerkleRoot = %s\n", genesis.BuildMerkleTree().ToString());
-        }
-
         hashGenesisBlock = genesis.GetPoWHash();	
         assert(hashGenesisBlock == uint256("0x00000a0e1c6968396840920912c5fb32311dac3b660c2b85dde7a35c02cce4bc"));
         assert(genesis.hashMerkleRoot == uint256("0xbb65e0394fdf0d2312da004741837a8d972c403563f53e58d8426bdf94d25e1f"));
@@ -159,35 +131,6 @@ public:
         genesis.nBits  = 0x1e0ffff0; 
         genesis.nNonce = 2058131;
         hashGenesisBlock = genesis.GetPoWHash();  
-		
-		// If genesis block hash does not match, then generate new genesis hash.
-        // This will figure out a valid hash and Nonce if you're
-        // creating a different genesis block:
-        while(false)
-        {
-			if (genesis.GetHash() != hashGenesisBlock)
-			LogPrintf("Searching for genesis block...\n");
-			uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-			uint256 thash;
-            thash = genesis.GetPoWHash();
-            if (thash <= hashTarget)
-                break;
-            if ((genesis.nNonce & 0xFFF) == 0)
-            {
-                LogPrintf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-            }
-            ++genesis.nNonce;
-            if (genesis.nNonce == 0)
-            {
-                LogPrintf("NONCE WRAPPED, incrementing time\n");
-                ++genesis.nTime;
-            }
-			LogPrintf("genesis.nTime = %u \n", genesis.nTime);
-			LogPrintf("genesis.nNonce = %u \n", genesis.nNonce);
-			LogPrintf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-			LogPrintf("hashMerkleRoot = %s\n", genesis.BuildMerkleTree().ToString());
-        }
-		
         assert(hashGenesisBlock == uint256("0x00000a0e1c6968396840920912c5fb32311dac3b660c2b85dde7a35c02cce4bc"));
 
         vFixedSeeds.clear();
